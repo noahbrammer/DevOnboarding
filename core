@@ -1,0 +1,31 @@
+# Define URLs
+$sfdx_cli_url = "https://developer.salesforce.com/media/salesforce-cli/sfdx-windows-amd64.exe"
+$nodejs_url = "https://nodejs.org/dist/v16.13.0/node-v16.13.0-x64.msi" # Updated to Latest LTS as of cut-off
+$vscode_url = "https://aka.ms/win32-x64-user-stable"
+$java_jdk_url = "https://download.oracle.com/java/17/latest/jdk-17_windows-x64_bin.exe" # Adjusted to Java 17
+
+# Download Files
+Write-Output "Downloading Salesforce CLI..."
+Invoke-WebRequest -Uri $sfdx_cli_url -OutFile "$env:TEMP\sfdx_installer.exe"
+
+Write-Output "Downloading Node.js..."
+Invoke-WebRequest -Uri $nodejs_url -OutFile "$env:TEMP\node_installer.msi"
+
+Write-Output "Downloading Visual Studio Code..."
+Invoke-WebRequest -Uri $vscode_url -OutFile "$env:TEMP\vscode_installer.exe"
+
+Write-Output "Downloading Java JDK 17..."
+Invoke-WebRequest -Uri $java_jdk_url -OutFile "$env:TEMP\java_jdk_installer.exe"
+
+# Install Downloaded Files
+Write-Output "Installing Salesforce CLI..."
+Start-Process -FilePath "$env:TEMP\sfdx_installer.exe" -ArgumentList "/quiet" -Wait
+
+Write-Output "Installing Node.js..."
+Start-Process -FilePath "$env:TEMP\node_installer.msi" -ArgumentList "/quiet" -Wait
+
+Write-Output "Installing Visual Studio Code..."
+Start-Process -FilePath "$env:TEMP\vscode_installer.exe" -ArgumentList "/quiet" -Wait
+
+Write-Output "Installing Java JDK 17..."
+Start-Process -FilePath "$env:TEMP\java_jdk_installer.exe" -ArgumentList "/s" -Wait
